@@ -11,8 +11,6 @@ public class Converter {
 
         for (String str : rows)
             cells.add(str.split(","));
-
-
     }
 
     private static String replaceOrAddPairNum(String s) {
