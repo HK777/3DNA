@@ -1,18 +1,8 @@
-package ru.dna.dna;
+package ru.dna.dna.parseAndConvert;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.StringReader;
 import java.util.ArrayList;
 
-@SpringBootTest
-class ApplicationTests {
-
-    @Test
+public class ParserAndConverter {
     private String parseAndConvert(String dnaName, String stringToConvert) {
         String[] rows = stringToConvert.split("\n");
         rows[0] = replaceOrAddPairNum(rows[0]);
@@ -22,7 +12,7 @@ class ApplicationTests {
         for (String str : rows)
             cells.add(str.split(","));
 
-        return convertToStringXML("3DNA", cells);
+        return convertToStringXML(dnaName, cells);
     }
 
     private static String replaceOrAddPairNum(String s) {
@@ -32,7 +22,6 @@ class ApplicationTests {
         return s.substring(1);
     }
 
-    @Test
     private String convertToStringXML(String dnaName, ArrayList<String[]> cells) {
         StringBuilder convertedToStringXml = new StringBuilder();
 
@@ -110,7 +99,6 @@ class ApplicationTests {
         return convertedToStringXml.toString();
     }
 
-    @Test
     String addXmlDNAEnd(String convertedToStringXml) {
 
         String stringXmlDnaEnd = "  <WorksheetOptions xmlns=\"urn:schemas-microsoft-com:office:excel\">\n" +
@@ -135,7 +123,3 @@ class ApplicationTests {
         return convertedToStringXml + stringXmlDnaEnd;
     }
 }
-
-
-
-
