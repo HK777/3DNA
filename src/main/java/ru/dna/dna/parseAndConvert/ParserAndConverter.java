@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class ParserAndConverter {
 
-    private String returnString="";
+    private String returnString = "";
 
-    public ParserAndConverter(){
+    public ParserAndConverter() {
 
         returnString = "<?xml version=\"1.0\"?>\n" +
                 "<?mso-application progid=\"Excel.Sheet\"?>\n" +
@@ -63,7 +63,7 @@ public class ParserAndConverter {
         for (String str : rows)
             cells.add(str.split(","));
 
-        returnString+= convertToStringXML(dnaName, cells);
+        returnString += convertToStringXML(dnaName, cells);
     }
 
     private static String replaceOrAddPairNum(String s) {
@@ -103,12 +103,7 @@ public class ParserAndConverter {
         }
         convertedToStringXml.append("  </Table>\n");
 
-        return convertedToStringXml.toString();
-    }
-
-    public String getConvertedXml() {
-
-        return returnString + "  <WorksheetOptions xmlns=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        return convertedToStringXml.toString() + "  <WorksheetOptions xmlns=\"urn:schemas-microsoft-com:office:excel\">\n" +
                 "   <PageSetup>\n" +
                 "    <Header x:Margin=\"0.3\"/>\n" +
                 "    <Footer x:Margin=\"0.3\"/>\n" +
@@ -124,7 +119,10 @@ public class ParserAndConverter {
                 "   <ProtectObjects>False</ProtectObjects>\n" +
                 "   <ProtectScenarios>False</ProtectScenarios>\n" +
                 "  </WorksheetOptions>\n" +
-                " </Worksheet>\n" +
-                "</Workbook>";
+                " </Worksheet>\n";
+    }
+
+    public String getConvertedXml() {
+        return returnString + "</Workbook>";
     }
 }
