@@ -3,8 +3,12 @@ package ru.dna.dna.parseAndConvert;
 import java.util.ArrayList;
 
 public class ParserAndConverter {
-    private String addXMLDnaHead(String convertedToStringXml) {
-        String stringXMLDnaHead = "<?xml version=\"1.0\"?>\n" +
+
+    private String returnString="";
+
+    public ParserAndConverter(){
+
+        returnString = "<?xml version=\"1.0\"?>\n" +
                 "<?mso-application progid=\"Excel.Sheet\"?>\n" +
                 "<Workbook xmlns=\"urn:schemas-microsoft-com:office:spreadsheet\"\n" +
                 " xmlns:o=\"urn:schemas-microsoft-com:office:office\"\n" +
@@ -48,11 +52,9 @@ public class ParserAndConverter {
                 "   <Font ss:FontName=\"Helvetica\" x:Family=\"Swiss\" ss:Size=\"12\" ss:Color=\"#000000\"/>\n" +
                 "  </Style>\n" +
                 " </Styles>\n";
-
-        return stringXMLDnaHead + convertedToStringXml;
     }
 
-    private String parseAndConvert(String dnaName, String stringToConvert) {
+    public void parseAndConvert(String dnaName, String stringToConvert) {
         String[] rows = stringToConvert.split("\n");
         rows[0] = replaceOrAddPairNum(rows[0]);
 
@@ -61,7 +63,7 @@ public class ParserAndConverter {
         for (String str : rows)
             cells.add(str.split(","));
 
-        return convertToStringXML(dnaName, cells);
+        returnString+= convertToStringXML(dnaName, cells);
     }
 
     private static String replaceOrAddPairNum(String s) {
@@ -104,9 +106,9 @@ public class ParserAndConverter {
         return convertedToStringXml.toString();
     }
 
-    String addXmlDNAEnd(String convertedToStringXml) {
+    public String getConvertedXml() {
 
-        String stringXmlDnaEnd = "  <WorksheetOptions xmlns=\"urn:schemas-microsoft-com:office:excel\">\n" +
+        return returnString + "  <WorksheetOptions xmlns=\"urn:schemas-microsoft-com:office:excel\">\n" +
                 "   <PageSetup>\n" +
                 "    <Header x:Margin=\"0.3\"/>\n" +
                 "    <Footer x:Margin=\"0.3\"/>\n" +
@@ -124,7 +126,5 @@ public class ParserAndConverter {
                 "  </WorksheetOptions>\n" +
                 " </Worksheet>\n" +
                 "</Workbook>";
-
-        return convertedToStringXml + stringXmlDnaEnd;
     }
 }
