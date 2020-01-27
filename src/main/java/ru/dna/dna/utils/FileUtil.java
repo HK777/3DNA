@@ -1,6 +1,6 @@
 package ru.dna.dna.utils;
 
-public class File {
+public class FileUtil {
 
   public static final String PAIR = "pair";
   public static final String PAIR_PAR = "pairpar";
