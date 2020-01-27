@@ -6,6 +6,6 @@ public class DnaInfo {
 
     public String name;
 
-    public Map<String,String> nameFileMap;
+    public Map<String, String> nameFileMap;
 
 }

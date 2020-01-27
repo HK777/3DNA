@@ -10,12 +10,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CsvClientConfiguration {
 
-  @Bean
-  CsvClient csvClient() {
-    return Feign.builder()
-        .client(new OkHttpClient())
-        .logger(new Slf4jLogger(CsvClient.class))
-        .logLevel(Logger.Level.FULL)
-        .target(CsvClient.class, "http://web.x3dna.org/");
-  }
+    @Bean
+    CsvClient csvClient() {
+        return Feign.builder()
+                .client(new OkHttpClient())
+                .logger(new Slf4jLogger(CsvClient.class))
+                .logLevel(Logger.Level.FULL)
+                .target(CsvClient.class, "http://web.x3dna.org/");
+    }
 }
