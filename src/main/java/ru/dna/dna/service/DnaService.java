@@ -6,6 +6,8 @@ import ru.dna.dna.clients.CsvClient;
 import ru.dna.dna.parseAndConvert.ParserAndConverter;
 import ru.dna.dna.utils.File;
 
+import java.util.List;
+
 @Component
 public class DnaService {
 
@@ -16,7 +18,7 @@ public class DnaService {
         this.csvClient = csvClient;
     }
 
-    public String getFile(String filename, String[] dna){
+    public String getFile(String filename, List<String> dna){
         ParserAndConverter parserAndConverter = new ParserAndConverter();
 
         for(String str: dna){
