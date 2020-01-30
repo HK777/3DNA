@@ -3,8 +3,10 @@ package ru.dna.dna.controller;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import ru.dna.dna.service.DnaService;
 import ru.dna.dna.utils.FileUtil;
 
@@ -34,7 +36,10 @@ public class DnaController {
         response.addHeader("Content-Disposition", "attachment; filename=\"dna.zip\"");
 
         String[] split = dna.split(",");
-        List<String> stringList = Arrays.stream(split).map(String::trim).collect(Collectors.toList());
+        List<String> stringList = Arrays.stream(split).map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+
+        if(stringList.isEmpty())
+            return null;
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(byteArrayOutputStream);
@@ -60,6 +65,34 @@ public class DnaController {
 
         return byteArrayOutputStream.toByteArray();
     }
+
+//    @PostMapping(value = "/zip-files",produces =  "application/zip")
+//    public byte[] zipUploaded(@RequestParam("uploadingFiles") MultipartFile[] uploadingFiles, HttpServletResponse response){
+//        response.setContentType("application/zip");
+//        response.setStatus(HttpServletResponse.SC_OK);
+//        response.addHeader("Content-Disposition", "attachment; filename=\"dna.zip\"");
+//
+//        for (MultipartFile uploadingFile : uploadingFiles) {
+//            uploadingFile.transferTo("");
+//        }
+//    }
+    @PostMapping(value = "/zip-files")
+    public String zipUploaded(@RequestParam("files") MultipartFile[] uploadingFiles, HttpServletResponse response){
+//        response.setContentType("application/zip");
+//        response.setStatus(HttpServletResponse.SC_OK);
+//        response.addHeader("Content-Disposition", "attachment; filename=\"dna.zip\"");
+
+        if(uploadingFiles.length==0)
+            return "false";
+        return "true";
+//        for (MultipartFile uploadingFile : uploadingFiles) {
+//            uploadingFile.transferTo("");
+//        }
+    }
+
+
+
+
 
     private void addXmlFileToZip(ZipOutputStream zipOutputStream, List<String> dna, String fileName)
             throws IOException {
