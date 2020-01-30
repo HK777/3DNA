@@ -1,7 +1,5 @@
 package ru.dna.dna.parseAndConvert;
 
-import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
